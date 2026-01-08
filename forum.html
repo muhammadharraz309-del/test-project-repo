@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Student Forum</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --bg: #f3f4f6;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --card: #ffffff;
+            --border: #e5e7eb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --gold: #fbbf24;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-image: url('https://images.pexels.com/photos/13968246/pexels-photo-13968246.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 20px;
+            color: var(--text);
+            padding-bottom: 80px;
+            scroll-behavior: smooth;
+        }
+
+        .forum-container { max-width: 900px; margin: auto; }
+
+        /* --- HEADER --- */
+        .header-row {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 25px; background: white; padding: 15px 20px;
+            border-radius: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .notification-bell { position: relative; font-size: 1.5rem; cursor: pointer; margin-right: 15px; }
+        .notif-badge {
+            position: absolute; top: -5px; right: -5px; background: var(--danger); color: white;
+            font-size: 0.7rem; padding: 2px 5px; border-radius: 50%; display: none;
+        }
+        .notif-badge.show { display: block; }
+
+        .new-thread-btn {
+            background: var(--primary); color: white; padding: 10px 20px;
+            border-radius: 12px; font-weight: 700; cursor: pointer;
+            display: flex; align-items: center; gap: 8px; border: none;
+            transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+        }
+        .new-thread-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* --- THREAD STRUCTURE --- */
+        .thread-wrapper { margin-bottom: 40px; }
+
+        /* --- POST CARD --- */
+        .post-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 20px; margin-bottom: 16px;
+            display: flex; gap: 20px; position: relative; transition: all 0.3s ease;
+        }
+        
+        .main-thread { border-left: 5px solid var(--primary); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .post-card.best-answer { border: 2px solid var(--gold); background: #fffbeb; order: -1; }
+        
+        /* --- NEW: VISUALS FOR SOLVED THREAD --- */
+        .post-card.thread-solved {
+            border-color: var(--success);
+            background-color: #f0fdf4; /* Light Green Background */
+        }
+        .post-card.thread-solved::after {
+            content: "✓ SOLVED";
+            position: absolute; top: 15px; right: 20px;
+            background: var(--success); color: white;
+            padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.8rem;
+        }
+        
+        /* Disabled Button Style */
+        .action.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        /* ------------------------------------- */
+
+        .best-answer-badge {
+            display: none; background: var(--gold); color: #78350f;
+            font-size: 0.75rem; padding: 2px 8px; border-radius: 12px;
+            font-weight: bold; margin-left: auto;
+        }
+        .post-card.best-answer .best-answer-badge { display: inline-block; }
+
+        .newly-added { animation: slideIn 0.4s ease-out forwards; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- VOTING --- */
+        .vote-section { display: flex; flex-direction: column; align-items: center; min-width: 50px; }
+        .vote-btn { background: none; border: none; cursor: pointer; font-size: 1.5rem; color: var(--muted); padding: 10px; transition: transform 0.1s; }
+        .vote-btn:active { transform: scale(1.3); } 
+        .vote-btn.active { color: var(--primary); font-weight: bold; transform: scale(1.1); }
+        .vote-count { font-weight: 700; margin: 2px 0; font-size: 1.1rem; }
+
+        /* --- CONTENT --- */
+        .post-content { flex: 1; }
+        .post-author { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;}
+        .avatar { width: 36px; height: 36px; border-radius: 50%; background: #6366f1; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .author-name { font-weight: 600; font-size: 0.95rem; }
+        .badge { font-size: 0.75rem; padding: 2px 10px; border-radius: 20px; font-weight: 600; background: #eef2ff; color: var(--primary); }
+        .badge.instructor { background: #fee2e2; color: #b91c1c; }
+        .timestamp { font-size: 0.8rem; color: var(--muted); }
+        .post-title { margin: 0 0 10px 0; font-size: 1.2rem; font-weight: 700; color: var(--text); }
+        .post-body { margin: 12px 0; line-height: 1.6; color: #374151; }
+        
+        .resource-attachment {
+            margin-top: 10px; padding: 10px; background: #f0fdf4;
+            border: 1px dashed var(--success); border-radius: 8px;
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: 0.9rem; color: #166534; text-decoration: none;
+        }
+        .resource-attachment:hover { background: #dcfce7; }
+        
+        .image-preview {
+            margin-top: 15px; max-width: 100%; height: auto;
+            border-radius: 8px; border: 1px solid var(--border);
+            display: block; max-height: 300px; object-fit: contain; background: #000;
+        }
+
+        /* --- ACTIONS --- */
+        .post-actions {
+            display: flex; gap: 20px; font-size: 0.85rem; color: var(--muted);
+            border-top: 1px solid #f3f4f6; padding-top: 12px; margin-top: 12px;
+            align-items: center; flex-wrap: wrap;
+        }
+        .action { cursor: pointer; display: flex; align-items: center; gap: 5px; padding: 5px; }
+        .action:hover { color: var(--primary); background: #f3f4f6; border-radius: 6px;}
+        
+        .mod-dropdown { position: relative; margin-left: auto; }
+        .mod-btn { background: none; border: none; cursor: pointer; color: var(--muted); font-weight: 600; font-size: 1.4rem; padding: 0 15px; }
+        .mod-menu {
+            display: none; position: absolute; right: 0; top: 100%;
+            background: white; border: 1px solid var(--border);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            border-radius: 8px; z-index: 10; width: 160px; overflow: hidden;
+        }
+        .mod-dropdown:hover .mod-menu { display: block; }
+        .mod-item { padding: 12px 15px; cursor: pointer; font-size: 0.9rem; display: block; text-align: left; width: 100%; border: none; background: none; }
+        .mod-item:hover { background: var(--bg); }
+        .mod-item.delete { color: var(--danger); }
+
+        /* --- REPLIES & STAGING AREA --- */
+        .reply-input-container { margin-top: 15px; display: none; }
+        .reply-input-container.active { display: block; }
+        
+        .reply-textarea { 
+            width: 100%; padding: 12px; border: 1px solid var(--border); 
+            border-radius: 8px; margin-bottom: 8px; resize: vertical; 
+            box-sizing: border-box; font-family: inherit;
+        }
+
+        .reply-toolbar { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+        .reply-link-input { flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-family: inherit; font-size: 0.9rem; }
+        .reply-file-label { background: #e5e7eb; padding: 8px 12px; border-radius: 6px; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 5px; white-space: nowrap; transition: 0.2s;}
+        .reply-file-label:hover { background: #d1d5db; }
+
+        .attachment-staging-area {
+            display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;
+        }
+
+        .preview-chip {
+            background: #eef2ff; border: 1px solid #c7d2fe;
+            color: var(--primary); padding: 5px 10px 5px 5px;
+            border-radius: 20px; font-size: 0.85rem; font-weight: 500;
+            display: flex; align-items: center; gap: 8px;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+
+        .chip-thumb { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; background: white; }
+        .chip-icon { width: 24px; height: 24px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+        .chip-remove { cursor: pointer; color: var(--muted); font-weight: bold; margin-left: 5px; padding: 2px; border-radius: 50%; }
+        .chip-remove:hover { background: rgba(0,0,0,0.1); color: var(--danger); }
+
+        .nested-reply { margin-left: 0; border-top: 4px solid var(--bg); } 
+        
+        .replies-list {
+            margin-top: 10px; padding-left: 20px;
+            border-left: 2px solid var(--border);
+            display: flex; flex-direction: column; gap: 15px;
+        }
+
+        /* --- MODALS --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+            display: none; justify-content: center; align-items: center; z-index: 1000;
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .modal-overlay.open { display: flex; opacity: 1; }
+        .modal-card {
+            background: white; width: 90%; max-width: 500px;
+            border-radius: 16px; padding: 25px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: scale(0.95); transition: transform 0.3s;
+        }
+        .modal-overlay.open .modal-card { transform: scale(1); }
+        .form-group { margin-bottom: 15px; }
+        .form-label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.9rem; color: var(--text); }
+        .form-input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; box-sizing: border-box; font-family: inherit; }
+        .btn-row { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+        .btn { padding: 10px 24px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; }
+        .btn-cancel { background: #e5e7eb; color: var(--text); }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+
+        /* --- TOAST --- */
+        #toast-container { position: fixed; bottom: 80px; right: 20px; z-index: 2000; display: flex; flex-direction: column; gap: 10px;}
+
+        @media (max-width: 600px) {
+            .post-card { flex-direction: column; gap: 10px; padding: 15px; }
+            .vote-section { flex-direction: row; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 10px; width: 100%;}
+            .header-row { flex-direction: row; }
+            .replies-list { padding-left: 10px; border: none; }
+            
+            /* UPDATED: Adjusted floating button to sit above the new Bottom Nav */
+            .new-thread-btn {
+                position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+                z-index: 1000; box-shadow: 0 5px 20px rgba(79, 70, 229, 0.4);
+                background: var(--primary); color: white; width: max-content;
+            }
+        }
+
+        /* ========================================= */
+        /* === MOBILE OPTIMIZATION ADDITIONS ======= */
+        /* ========================================= */
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: white; border-top: 1px solid var(--border);
+            justify-content: space-around; padding: 10px 0; z-index: 1900;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .mobile-nav-item {
+            display: flex; flex-direction: column; align-items: center;
+            font-size: 0.7rem; color: var(--muted); text-decoration: none;
+            cursor: pointer; width: 100%;
+        }
+
+        .mobile-nav-item.active { color: var(--primary); font-weight: bold; }
+        .mobile-nav-icon { font-size: 1.4rem; margin-bottom: 4px; display: block; }
+        
+        .mobile-search { display: none; margin-bottom: 15px; }
+
+        @media (max-width: 600px) {
+            .mobile-bottom-nav { display: flex; }
+            .header-row .notification-bell { display: none; } /* Hide top bell on mobile */
+            .mobile-search { display: block; }
+            body { padding-bottom: 90px; } /* Add extra padding for bottom nav */
+            
+            /* Increase touch targets for inputs on mobile */
+            .form-input, .reply-textarea, .reply-link-input { padding: 15px; font-size: 16px; } 
+        }
+    </style>
+</head>
+<body>
+
+<div class="forum-container">
+    
+    <header class="header-row">
+        <div style="display:flex; align-items:center;">
+            <h1>Discussions</h1>
+        </div>
+        
+        <div style="display:flex; align-items:center;">
+            <div class="notification-bell" onclick="showNotifications()">
+                🔔<span class="notif-badge" id="notif-badge">0</span>
+            </div>
+            
+            <button class="new-thread-btn" onclick="openCreateModal()">
+                <span>➕</span> New Thread
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-search">
+        <input type="text" class="form-input" placeholder="🔍 Search topics...">
+    </div>
+
+    <div id="discussion-feed">
+        
+        <div class="thread-wrapper" id="thread-existing">
+            
+            <div class="post-card main-thread" id="post-main">
+                <div class="vote-section">
+                    <button class="vote-btn upvote" onclick="vote(this, 1)">▲</button>
+                    <span class="vote-count">15</span>
+                    <button class="vote-btn downvote" onclick="vote(this, -1)">▼</button>
+                </div>
+                <div class="post-content">
+                    <div class="post-author">
+                        <div class="avatar">A</div>
+                        <span class="author-name">Alex Johnson</span>
+                        <span class="badge">Question</span>
+                        <span class="timestamp">2h ago</span>
+                    </div>
+                    <h3 class="post-title">Understanding CSS Grid Areas</h3>
+                    <div class="post-body">
+                        I'm having trouble understanding CSS Grid <code>grid-template-areas</code>. Can someone explain?
+                    </div>
+                    <div class="post-actions">
+                        <span class="action" onclick="toggleReply('post-main')">💬 Reply</span>
+                        <span class="action" id="solve-btn-post-main" onclick="triggerAction('solve-thread', 'post-main')">✅ Mark Solved</span>
+                        
+                        <div class="mod-dropdown">
+                            <button class="mod-btn">⋮</button>
+                            <div class="mod-menu">
+                                <button class="mod-item report" onclick="triggerAction('report', 'post-main')">🚩 Report</button>
+                                <button class="mod-item delete" onclick="triggerAction('delete', 'post-main')">🗑️ Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="reply-input-container" id="reply-box-post-main">
+                        <textarea class="reply-textarea" placeholder="Type your answer..."></textarea>
+                        
+                        <div class="attachment-staging-area" id="staging-post-main"></div>
+
+                        <div class="reply-toolbar">
+                            <input type="text" class="reply-link-input" placeholder="Paste a link..." oninput="updateLinkPreview(this, 'staging-post-main')">
+                            
+                            <label class="reply-file-label">
+                                📎 Attach File 
+                                <input type="file" class="reply-file-input" hidden onchange="updateFilePreview(this, 'staging-post-main')">
+                            </label>
+                        </div>
+                        
+                        <button class="btn btn-primary" onclick="postReply('post-main', 'replies-existing')">Post Reply</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="replies-list" id="replies-existing">
+                <h4 style="margin: 0 0 10px 0; color:var(--muted); font-size:0.9rem;">2 Answers</h4>
+                
+                <div class="post-card nested-reply instructor-post" id="post-2">
+                    <div class="vote-section">
+                        <button class="vote-btn upvote" onclick="vote(this, 1)">▲</button>
+                        <span class="vote-count">45</span>
+                        <button class="vote-btn downvote" onclick="vote(this, -1)">▼</button>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-author">
+                            <div class="avatar" style="background:var(--primary);">S</div>
+                            <span class="author-name">Prof. Sarah Miller</span>
+                            <span class="badge instructor">Instructor</span>
+                            <span class="best-answer-badge">⭐ Best Answer</span>
+                        </div>
+                        <div class="post-body">
+                            Think of it like drawing a map with words. Each string is a row, and each word is a grid cell.
+                            <a href="#" class="resource-attachment" target="_blank">📄 Grid_Guide.pdf</a>
+                        </div>
+                        <div class="post-actions">
+                            <span class="action" onclick="triggerAction('solve', 'this')">✅ Mark Best</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-card nested-reply" id="post-3">
+                    <div class="vote-section">
+                        <button class="vote-btn upvote" onclick="vote(this, 1)">▲</button>
+                        <span class="vote-count">5</span>
+                        <button class="vote-btn downvote" onclick="vote(this, -1)">▼</button>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-author"><div class="avatar" style="background:#10b981;">D</div><span class="author-name">David Lee</span></div>
+                        <div class="post-body">Check out CSS Tricks guide, it helps a lot!</div>
+                        <div class="post-actions"><span class="action" onclick="triggerAction('solve', 'this')">✅ Mark Best</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal-overlay" id="createModal">
+    <div class="modal-card">
+        <div class="modal-header"><h2>Create New Thread</h2></div>
+        <div class="form-group">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-input" id="newPostTitle" placeholder="e.g., Question about homework...">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Category</label>
+            <select class="form-input" id="newPostCategory">
+                <option>Question</option>
+                <option>Discussion</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <textarea class="form-input" id="newPostContent" rows="4" placeholder="What's on your mind?"></textarea>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Attach Resource (Optional URL)</label>
+            <input type="text" class="form-input" id="newPostResource" placeholder="https://...">
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-cancel" onclick="closeModals()">Cancel</button>
+            <button class="btn btn-primary" onclick="submitNewThread()">Post</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="confirmModal">
+    <div class="modal-card" style="border-top: 5px solid var(--warning);">
+        <div class="modal-header"><h2 id="confirmTitle">Confirm Action</h2></div>
+        <p id="confirmMessage" style="color: #4b5563; margin-bottom: 20px;">Are you sure?</p>
+        <div class="form-group" id="reasonGroup" style="display:none;">
+            <label class="form-label">Reason:</label>
+            <select class="form-input" id="confirmReason">
+                <option>Spam/Advertising</option>
+                <option>Harassment</option>
+                <option>Off-topic</option>
+            </select>
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-cancel" onclick="closeModals()">Cancel</button>
+            <button class="btn btn-danger" id="confirmBtn" onclick="executeAction()">Confirm</button>
+        </div>
+    </div>
+</div>
+
+<nav class="mobile-bottom-nav">
+    <div class="mobile-nav-item active">
+        <span class="mobile-nav-icon">🏠</span>
+        <span>Home</span>
+    </div>
+    <div class="mobile-nav-item">
+        <span class="mobile-nav-icon">🔍</span>
+        <span>Search</span>
+    </div>
+    <div class="mobile-nav-item" onclick="showNotifications()">
+        <div style="position: relative; display: inline-block;">
+            <span class="mobile-nav-icon">🔔</span>
+            <span class="notif-badge" id="mobile-notif-badge" style="top: -2px; right: -5px;">0</span>
+        </div>
+        <span>Alerts</span>
+    </div>
+    <div class="mobile-nav-item">
+        <span class="mobile-nav-icon">👤</span>
+        <span>Me</span>
+    </div>
+</nav>
+
+<div id="toast-container"></div>
+
+<script>
+    // ==========================
+    // NOTIFICATIONS
+    // ==========================
+    let notifCount = 0;
+    function showToast(message, type="info") {
+        let toast = document.createElement("div");
+        toast.innerHTML = message;
+        if(type === "error") { toast.style.background = "var(--danger)"; } 
+        else if(type === "solved") { toast.style.background = "var(--gold)"; toast.style.color = "#333"; }
+        else if(type === "thread-solved") { toast.style.background = "var(--success)"; } 
+        else { toast.style.background = "var(--primary)"; }
+        
+        if(type !== "solved") toast.style.color = "#fff";
+        toast.style.padding = "12px 18px";
+        toast.style.borderRadius = "8px";
+        toast.style.boxShadow = "0 5px 15px rgba(0,0,0,0.2)";
+        toast.style.animation = "slideIn 0.3s ease-out";
+        document.getElementById('toast-container').appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+
+    function showNotifications() {
+        if(notifCount > 0) { 
+            alert(`You have ${notifCount} new interactions!`); 
+            notifCount = 0; 
+            document.getElementById('notif-badge').classList.remove('show'); 
+            // Mobile sync
+            document.getElementById('mobile-notif-badge').classList.remove('show');
+        }
+        else { alert("No new notifications."); }
+    }
+
+    // ==========================
+    // LIVE PREVIEW LOGIC
+    // ==========================
+    function updateFilePreview(input, stagingId) {
+        const staging = document.getElementById(stagingId);
+        const file = input.files[0];
+        const existingFile = staging.querySelector('[data-type="file"]');
+        if(existingFile) existingFile.remove();
+
+        if (file) {
+            const chip = document.createElement('div');
+            chip.className = 'preview-chip';
+            chip.setAttribute('data-type', 'file');
+
+            let iconHTML = '';
+            if(file.type.startsWith('image/')) {
+                const url = URL.createObjectURL(file);
+                iconHTML = `<img src="${url}" class="chip-thumb">`;
+            } else {
+                iconHTML = `<div class="chip-icon">📄</div>`;
+            }
+
+            chip.innerHTML = `${iconHTML}<span>${file.name}</span><span class="chip-remove" onclick="removeAttachment(this, '${input.id}')">✕</span>`;
+            staging.appendChild(chip);
+        }
+    }
+
+    function updateLinkPreview(input, stagingId) {
+        const staging = document.getElementById(stagingId);
+        const link = input.value.trim();
+        const existingLink = staging.querySelector('[data-type="link"]');
+        if(existingLink) existingLink.remove();
+
+        if (link.length > 5) { 
+            const chip = document.createElement('div');
+            chip.className = 'preview-chip';
+            chip.setAttribute('data-type', 'link');
+            chip.innerHTML = `<div class="chip-icon">🔗</div><span style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${link}</span><span class="chip-remove" onclick="removeLink(this)">✕</span>`;
+            staging.appendChild(chip);
+        }
+    }
+
+    function removeAttachment(btn, inputId) { btn.parentElement.remove(); }
+    function removeLink(btn) { 
+        // Find input and clear it
+        const toolbar = btn.closest('.reply-input-container').querySelector('.reply-link-input');
+        if(toolbar) toolbar.value = '';
+        btn.parentElement.remove(); 
+    }
+
+
+    // ==========================
+    // NEW THREAD LOGIC
+    // ==========================
+    function submitNewThread() {
+        const title = document.getElementById('newPostTitle').value.trim();
+        const txt = document.getElementById('newPostContent').value.trim();
+        const res = document.getElementById('newPostResource').value.trim();
+        const cat = document.getElementById('newPostCategory').value;
+
+        if(!title || !txt) { showToast("⚠️ Title and Content are required!", "error"); return; }
+        
+        const id = 'post-' + Date.now();
+        const replyListId = 'replies-' + Date.now();
+        const stagingId = 'staging-' + id;
+        const resourceHTML = res ? `<a href="${res}" class="resource-attachment" target="_blank">📎 Attached Resource</a>` : '';
+        
+        const threadHTML = `
+        <div class="thread-wrapper newly-added">
+            <div class="post-card main-thread" id="${id}">
+                <div class="vote-section">
+                    <button class="vote-btn upvote" onclick="vote(this, 1)">▲</button>
+                    <span class="vote-count">0</span>
+                    <button class="vote-btn downvote" onclick="vote(this, -1)">▼</button>
+                </div>
+                <div class="post-content">
+                    <div class="post-author">
+                        <div class="avatar">Y</div><span class="author-name">You</span>
+                        <span class="badge">${cat}</span><span class="timestamp">Just now</span>
+                    </div>
+                    <h3 class="post-title">${title}</h3>
+                    <div class="post-body">${txt} ${resourceHTML}</div>
+                    <div class="post-actions">
+                        <span class="action" onclick="toggleReply('${id}')">💬 Reply</span>
+                        
+                        <span class="action disabled" id="solve-btn-${id}" onclick="triggerAction('solve-thread', '${id}')">✅ Mark Solved</span>
+
+                        <div class="mod-dropdown">
+                            <button class="mod-btn">⋮</button>
+                            <div class="mod-menu"><button class="mod-item delete" onclick="triggerAction('delete', '${id}')">🗑️ Delete</button></div>
+                        </div>
+                    </div>
+                    <div class="reply-input-container" id="reply-box-${id}">
+                        <textarea class="reply-textarea" placeholder="Type your answer..."></textarea>
+                        
+                        <div class="attachment-staging-area" id="${stagingId}"></div>
+
+                        <div class="reply-toolbar">
+                            <input type="text" class="reply-link-input" placeholder="Paste a link..." oninput="updateLinkPreview(this, '${stagingId}')">
+                            <label class="reply-file-label">
+                                📎 Attach File 
+                                <input type="file" class="reply-file-input" hidden onchange="updateFilePreview(this, '${stagingId}')">
+                            </label>
+                        </div>
+                        <button class="btn btn-primary" onclick="postReply('${id}', '${replyListId}')">Post Reply</button>
+                    </div>
+                </div>
+            </div>
+            <div class="replies-list" id="${replyListId}"></div>
+        </div>`;
+        
+        document.getElementById('discussion-feed').insertAdjacentHTML('afterbegin', threadHTML);
+        closeModals();
+        document.getElementById('newPostTitle').value = "";
+        document.getElementById('newPostContent').value = "";
+        document.getElementById('newPostResource').value = "";
+        showToast("📝 Thread Posted!");
+    }
+
+    // ==========================
+    // REPLY LOGIC
+    // ==========================
+    function postReply(inputId, containerId) {
+        const box = document.getElementById("reply-box-" + inputId);
+        const text = box.querySelector("textarea").value.trim();
+        
+        const link = box.querySelector(".reply-link-input").value.trim();
+        const fileInput = box.querySelector(".reply-file-input");
+        const file = fileInput.files.length > 0 ? fileInput.files[0] : null;
+
+        if (text === "" && !link && !file) { showToast("⚠️ Reply cannot be empty!", "error"); return; }
+
+        let attachmentHTML = "";
+        
+        if(link) attachmentHTML += `<a href="${link}" class="resource-attachment" target="_blank">🔗 ${link}</a>`;
+
+        if(file) {
+            const fileUrl = URL.createObjectURL(file);
+            if(file.type.startsWith('image/')) {
+                attachmentHTML += `<div><img src="${fileUrl}" class="image-preview" alt="User Image"></div>`;
+            } else {
+                attachmentHTML += `<a href="${fileUrl}" class="resource-attachment" target="_blank">📄 ${file.name}</a>`;
+            }
+        }
+
+        const html = `
+        <div class="post-card nested-reply newly-added">
+            <div class="vote-section">
+                <button class="vote-btn upvote" onclick="vote(this, 1)">▲</button>
+                <span class="vote-count">0</span>
+                <button class="vote-btn downvote" onclick="vote(this, -1)">▼</button>
+            </div>
+            <div class="post-content">
+                <div class="post-author">
+                    <div class="avatar">Y</div><span class="author-name">You</span>
+                    <span class="timestamp">Just now</span>
+                </div>
+                <div class="post-body">
+                    ${text}
+                    ${attachmentHTML}
+                </div>
+                <div class="post-actions">
+                    <span class="action" onclick="triggerAction('solve', 'this')">✅ Mark Best</span>
+                    <span class="action" onclick="this.closest('.post-card').remove()">🗑️ Delete</span>
+                </div>
+            </div>
+        </div>`;
+
+        const list = document.getElementById(containerId);
+        list.insertAdjacentHTML("afterbegin", html);
+
+        // --- NEW LOGIC: ENABLE SOLVED BUTTON ON MAIN THREAD ---
+        // inputId is the Main Post ID (e.g., post-123)
+        const solveBtn = document.querySelector(`#solve-btn-${inputId}`);
+        if(solveBtn) {
+            solveBtn.classList.remove('disabled');
+        }
+        // -----------------------------------------------------
+
+        // Reset Inputs & Staging
+        box.classList.remove("active");
+        box.querySelector("textarea").value = "";
+        box.querySelector(".reply-link-input").value = "";
+        fileInput.value = "";
+        box.querySelector(".attachment-staging-area").innerHTML = ""; 
+        
+        showToast("📢 Reply posted!");
+        notifCount++;
+        document.getElementById('notif-badge').innerText = notifCount;
+        document.getElementById('notif-badge').classList.add('show');
+        
+        // SYNC MOBILE BADGE MANUALLY
+        document.getElementById('mobile-notif-badge').innerText = notifCount;
+        document.getElementById('mobile-notif-badge').classList.add('show');
+    }
+
+    // ==========================
+    // VOTING
+    // ==========================
+    function vote(btn, val) {
+        const voteSection = btn.parentElement;
+        const countEl = voteSection.querySelector(".vote-count");
+        let count = parseInt(countEl.innerText);
+        const upBtn = voteSection.querySelector(".upvote");
+        const downBtn = voteSection.querySelector(".downvote");
+        const upActive = upBtn.classList.contains("active");
+        const downActive = downBtn.classList.contains("active");
+
+        if (val === 1) { 
+            if (upActive) { upBtn.classList.remove("active"); count--; } 
+            else { upBtn.classList.add("active"); count++; if (downActive) { downBtn.classList.remove("active"); count++; } }
+        }
+        if (val === -1) { 
+            if (downActive) { downBtn.classList.remove("active"); count++; } 
+            else { downBtn.classList.add("active"); count--; if (upActive) { upBtn.classList.remove("active"); count--; } }
+        }
+        countEl.innerText = count;
+        const replyList = btn.closest('.replies-list');
+        if(replyList) setTimeout(() => sortReplies(replyList), 500); 
+    }
+
+    function sortReplies(container) {
+        const replies = Array.from(container.children).filter(child => child.classList.contains('post-card'));
+        replies.sort((a, b) => {
+            const isBestA = a.classList.contains('best-answer');
+            const isBestB = b.classList.contains('best-answer');
+            if (isBestA && !isBestB) return -1;
+            if (!isBestA && isBestB) return 1;
+            const votesA = parseInt(a.querySelector('.vote-count').innerText);
+            const votesB = parseInt(b.querySelector('.vote-count').innerText);
+            return votesB - votesA;
+        });
+        const headers = Array.from(container.children).filter(child => !child.classList.contains('post-card'));
+        container.innerHTML = "";
+        headers.forEach(h => container.appendChild(h));
+        replies.forEach(node => container.appendChild(node));
+    }
+
+    // ==========================
+    // ACTIONS & MODAL
+    // ==========================
+    let pendingAction = null; 
+
+    function closeModals() {
+        document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('open'));
+        document.getElementById('reasonGroup').style.display = 'none';
+        document.getElementById('confirmBtn').className = 'btn btn-danger';
+        document.getElementById('confirmBtn').innerText = "Confirm";
+    }
+
+    function toggleReply(id) {
+        const box = document.getElementById(`reply-box-${id}`);
+        box.classList.toggle('active');
+        if(box.classList.contains('active')) box.querySelector('textarea').focus();
+    }
+
+    function openCreateModal() { document.getElementById('createModal').classList.add('open'); }
+
+    function triggerAction(type, targetId) {
+        const modal = document.getElementById('confirmModal');
+        const title = document.getElementById('confirmTitle');
+        const msg = document.getElementById('confirmMessage');
+        const reasonGroup = document.getElementById('reasonGroup');
+        const confirmBtn = document.getElementById('confirmBtn');
+
+        reasonGroup.style.display = 'none';
+        confirmBtn.className = 'btn btn-danger';
+        
+        let el = null;
+        if (type !== 'solve-thread') {
+             el = targetId === 'this' ? event.target.closest('.post-card') : document.getElementById(targetId);
+        } else {
+             el = document.getElementById(targetId);
+        }
+
+        if (type === 'delete') {
+            title.innerText = "Delete Content?"; msg.innerText = "Permanent action."; reasonGroup.style.display = 'block'; 
+            pendingAction = () => { el.remove(); showToast("🗑️ Content deleted"); };
+        } 
+        else if (type === 'report') {
+            title.innerText = "Report Content"; msg.innerText = "Reason for reporting?"; reasonGroup.style.display = 'block';
+            confirmBtn.className = 'btn btn-primary';
+            pendingAction = () => { showToast("🚩 Report sent to admin"); };
+        }
+        else if (type === 'solve') { // Mark a reply as Best Answer
+            title.innerText = "Mark Best Answer?"; msg.innerText = "This will pin this answer to the top.";
+            confirmBtn.className = 'btn btn-primary'; confirmBtn.innerText = "Yes, Mark Best";
+            pendingAction = () => {
+                const list = el.closest('.replies-list');
+                if(list) {
+                    list.querySelectorAll('.post-card').forEach(c => c.classList.remove('best-answer'));
+                    el.classList.add('best-answer');
+                    showToast("⭐ Answer marked as Solved!", "solved");
+                    sortReplies(list);
+                }
+            };
+        }
+        else if (type === 'solve-thread') { // Mark the main thread as Solved
+            title.innerText = "Mark Thread as Solved?"; msg.innerText = "This indicates the question has been answered.";
+            confirmBtn.className = 'btn btn-primary'; confirmBtn.innerText = "Yes, Solve";
+            pendingAction = () => {
+                el.classList.add('thread-solved');
+                // Change button text
+                const btn = document.querySelector(`#solve-btn-${targetId}`);
+                if(btn) btn.innerText = "✓ Solved";
+                showToast("✅ Thread marked as Solved!", "thread-solved");
+            };
+        }
+        modal.classList.add('open');
+    }
+
+    function executeAction() { if (pendingAction) pendingAction(); closeModals(); pendingAction = null; }
+
+    // ==========================
+    // MOBILE NAV INTERACTION
+    // ==========================
+    document.querySelectorAll('.mobile-nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+            if(!this.onclick) { // If no specific onclick function
+                document.querySelectorAll('.mobile-nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            }
+        });
+    });
+
+</script>
+
+</body>
+</html>

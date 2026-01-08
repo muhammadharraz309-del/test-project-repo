@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tohoku University</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <section class="header">
+        <nav>
+            <a href="index.html"> <img src="images/logo.tohokopro.svg" alt="Logo"> </a>
+            
+            <div class="nav-links" id="navLinks">
+                <i class="fa-solid fa-xmark" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="prgress.html">Progress Tracker</a></li>
+                    <li><a href="forum.html">Forum</a></li>
+                </ul>
+            </div>
+            
+            <i class="fa-solid fa-bars" onclick="showMenu()"></i>
+        </nav>
+
+        <div class="text-box">
+             <h1>Eclipse First, The Rest Nowhere</h1>
+             <p>Using an advanced quality scoring Algorithm <br> and
+                Machine Learning we ensure that you receive more ideas 
+                from our top-qualities creatives.
+             </p>
+             <a href="user.html" class="hero-btn"> Sign Up Now</a>
+        </div>
+    </section>
+ 
+
+    <section class="instructors">
+    <h1> This is our top instructors in this university.</h1>
+    <p>They have a vast experience in teaching</p>
+
+     <div class="row">
+      <div class="instructors-col">
+       <img src="images/ryoyamada.jpg" alt="Ryo Yamada">
+       <h3> I'am Ryo Yamada a Chemistry instructor.</h3>
+      </div>
+     </div>
+    </section>
+
+    <section class="testimonials">
+    <h1>What Our Students Says</h1>
+    <p>Yuran Kolej Ni Mahal la SIAWW.</p>
+
+      <div class="row">
+
+          <div class="testimonials-col">
+          <img src="images/user1.jpg" alt="User 1">
+          <div>
+           <p> My experience studying in Tohoku University was amazing, I have a joyful moments here but the food here quite pricy. </p>
+           <h3>Shiroha Amasugi</h3>
+           <i class="fa-solid fa-star"></i>
+           <i class="fa-solid fa-star"></i>
+           <i class="fa-solid fa-star"></i>
+           <i class="fa-solid fa-star"></i> 
+           <i class="fa-solid fa-star"></i>
+          </div>
+         </div>
+
+          <div class="testimonials-col">
+          <img src="images/user2.jpg" alt="User 2">
+          <div>
+           <p>Truly magnificent, as expected one of the best university in the world. The Tohoku University is such a good vibe.</p>
+           <h3>Araki Keizo</h3>
+           <i class="fa-solid fa-star"></i>
+           <i class="fa-solid fa-star"></i>
+           <i class="fa-solid fa-star"></i>
+           <i class="fa-solid fa-star"></i>
+           <i class="fa-solid fa-star-half-stroke"></i>
+          </div>
+         </div>
+
+      </div>
+
+    </section>
+
+    <section class="cta">
+      <h1> Enroll for our various Online Courses</h1>
+      <a href="" class="hero-btn"> CONTACT US</a>
+    </section>
+
+    <section class="footer">
+
+       <h4>About Us</h4>
+       <p> Tohoku ON TOP</p>
+
+       <div class="icons">
+       <i class="fa-brands fa-facebook"></i>
+       <i class="fa-brands fa-x-twitter"></i>
+       <i class="fa-brands fa-square-instagram"></i>
+       <i class="fa-brands fa-linkedin"></i>
+       </div>
+
+       <p> Made by Group 7 &copy; All Rights Reserved</p>
+
+    </section>
+    
+    <script>
+        var navLinks = document.getElementById("navLinks");
+
+        function showMenu(){
+            navLinks.style.right = "0";
+        }
+        function hideMenu(){
+            navLinks.style.right = "-200px";
+        }
+    </script>
+
+</body>
+</html>

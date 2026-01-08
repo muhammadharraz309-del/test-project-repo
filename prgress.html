@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tohoku University - Progress Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html"> <img src="images/logo.tohokopro.svg" alt="Logo"> </a>
+        
+        <div class="nav-links" id="navLinks">
+            <i class="fa-solid fa-xmark" onclick="hideMenu()"></i>
+            <ul>
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="about.html">About Us</a></li>
+                <li> <a href="courses.html">Courses</a></li>
+                <li> <a href="prgress.html">Progress Tracker</a></li>
+                <li> <a href="forum.html">Forum</a></li>
+            </ul>
+        </div>
+        
+        <i class="fa-solid fa-bars" onclick="showMenu()"></i>
+    </nav>
+
+    <section id="progress">
+        <div class="course-progress">
+            <h2>Progress Tracker</h2>
+            <p>📊 Progress: <span id="percent">0</span>%</p>
+            <p>🎓 Lessons Watched: <span id="lessons">0</span>/10</p>
+            <p>📝 Quizzes Taken: <span id="quizzes">0</span>/5</p>
+
+            <progress id="progressBar" value="0" max="100"></progress>
+            <br><br>
+
+            <div class="action-buttons">
+                <button class="action-btn" onclick="updateProgress()">Update Progress</button>
+                <button class="action-btn" onclick="downloadReport()">Download Report</button>
+            </div>
+
+            <p id="certificate" style="margin-top: 20px; font-weight: bold; color: green;"></p>
+        </div>
+    </section>
+
+    <script>
+        // --- Navigation Logic ---
+        var navLinks = document.getElementById("navLinks");
+
+        function showMenu() {
+            navLinks.style.right = "0";
+        }
+        function hideMenu() {
+            navLinks.style.right = "-200px";
+        }
+
+        // --- Progress Tracking Logic ---
+        let lessons = 0;
+        let quizzes = 0;
+
+        function updateProgress() {
+            if (lessons < 10) lessons++;
+            if (quizzes < 5 && lessons % 2 === 0) quizzes++;
+
+            let percent = Math.round((lessons / 10) * 70 + (quizzes / 5) * 30);
+
+            document.getElementById("lessons").innerText = lessons;
+            document.getElementById("quizzes").innerText = quizzes;
+            document.getElementById("percent").innerText = percent;
+            document.getElementById("progressBar").value = percent;
+
+            if (percent === 100) {
+                document.getElementById("certificate").innerHTML =
+                    "🎓 Certificate Unlocked!";
+            }
+        }
+
+        function downloadReport() {
+            let report =
+`Progress Report
+Lessons: ${lessons}/10
+Quizzes: ${quizzes}/5
+Completion: ${document.getElementById("percent").innerText}%`;
+
+            let blob = new Blob([report], { type: "text/plain" });
+            let a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "progress.txt";
+            a.click();
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1015 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+.header {
+    min-height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(97, 110, 163, 0.7), rgba(60, 75, 138, 0.7)),
+    url(images/the-1-tohoku-university-main-campus.jpg);
+    background-position: center;
+    background-size: cover;
+    position: relative;
+} 
+
+nav{
+    display: flex;
+    padding: 2% 6%;
+    justify-content: space-between;
+    align-items: center;
+}
+nav img{
+    width:150px
+}
+
+.nav-links{
+ flex: 1;
+ text-align: right;
+ height: 200px;
+}
+.nav-links ul li{
+    list-style: none;
+    display: inline-block;
+    padding: 20px 12px;
+    position:  relative;
+
+}
+.nav-links ul li::after{
+    content: '';
+    width: 0%;
+    height: 4px;
+    background-color: darkblue;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+}
+.nav-links ul li:hover::after{
+width: 100%;
+}
+
+.nav-links ul li a{
+    text-decoration: none;
+    color: white;
+    font-size: 15px;
+    font-family: sans-serif;
+}
+.text-box{
+    width: 90%;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.text-box h1{
+    font-size: 50px;
+}
+.text-box p{
+    margin: 10px 0 40px;
+    font-size: 14px;
+    color: white;
+}
+.hero-btn {
+    display: incline-block;
+    text-decoration: none;
+    color: white;
+    border: 1px solid white;
+    padding: 12px 34px;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+}
+.hero-btn:hover {
+    border: 1px solid darkblue;
+    background: darkblue;
+    transition: 1s;
+}
+
+/* User Authentication */
+
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-image: url("images/os-x-mountain-lion-3840x2160-24073.jpg"); /* GAMBAR BACKGROUND */        
+    background-size: cover;  /* full screen */
+    background-position: center;   /* tengah */
+    background-repeat: no-repeat;
+    background-attachment: fixed;    /* scroll cantik */
+
+     
+
+}
+
+header {
+  background: darkblue; 
+  padding: 15px;
+  text-align: center;
+  font-size: 24px;
+}
+
+.container {
+  max-width: 100px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+/* AUTH */
+.auth-box {
+  
+  background-size: cover;
+  background-image: url('images/os-x-mountain-lion-3840x2160-24073.jpg');
+  width: 320px;
+  margin: auto;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+.auth-box img {
+  width: 100px;
+  margin-bottom: 5px;
+}
+
+.auth-box h3 {
+  margin: 10px 0 15px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0;
+}
+
+button {
+  width: 100%;
+  padding: 8px;
+  background: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.text-black {
+  margin-top: 10px;
+  font-size: 14px;
+  color: black;
+}
+
+.link {
+  color: #0066cc;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#signupBox {
+  display: none;
+}
+
+/* DASHBOARD */
+#dashboard {
+  display: none;
+}
+
+.dashboard-title {
+  text-align: center;
+  font-size: 36px;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 20px;
+}
+
+.dashboard-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+.dashboard-card img {
+  width: 80px;
+  margin-bottom: 10px;
+}
+
+.dashboard-card ul {
+  text-align: left;
+}
+
+footer {
+  text-align: center;
+  color: white;
+  padding: 15px;
+  font-size: 14px;
+}
+
+#message {
+  text-align: center;
+  color: white;
+}
+
+/* ..........courses.......... */
+
+.courses {
+    width:80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 100px;
+}
+
+h1 {
+    color: black;
+    font-size: 36px;
+    font-weight: 600;  
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: 600;
+}
+p {
+    color: black;
+    font-size: 14px;
+    font-weight: 300; 
+    line-height: 22px;
+    padding: 10px;
+}
+
+.row {
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.courses-col {
+    flex-basis: 31%;
+    background: #f3dfdf;
+    border-radius: 10px;
+    margin-bottom: 5%;
+    padding: 20px 12px;
+    box-sizing: border-box;
+    transition: 0.5s;
+    cursor: pointer;
+}
+h3{
+    text-align: center;
+    font-weight: 600;
+    margin: 10px 0;
+}
+.courses-col:hover{
+    box-shadow: 0 0 20px 0px rgba(221, 4, 4, 0.2);
+}
+
+/* .......................campus................. */
+
+.campus {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.campus-col{
+    flex-basis: 32%;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+.campus-col img{
+    width: 100%;
+    display: block;
+}
+
+.layer{
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.5;
+}
+
+.layer:hover{
+    background: rgba(60, 75, 138, 0.7);
+}
+
+.layer h3 {
+    width: 100%;
+    font-weight: 500;
+    color: white;
+    font-size: 26px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: 0.5s;
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+}
+
+.layer:hover h3{
+    bottom: 49%;
+    opacity: 1;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+/*..............Facilities..............*/
+.facilities{
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.facilities-col{
+    flex-basis: 32%;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.facilities-col img{
+    width: 100%;
+    display: block;
+}
+
+.facilities-col p{
+    padding: 0;
+}
+
+.padding-col h3{
+    margin-top: 16px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.layer{
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.5;
+}
+
+.layer:hover{
+    background: rgba(60, 75, 138, 0.7)
+}
+
+.layer h3{
+    width: 100%;
+    font-weight: 500;
+    color: white;
+    font-size: 26px; 
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: 0.5s;
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+}
+
+.layer:hover h3{
+    bottom: 49%;
+    opacity: 1;
+}
+
+.row{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+/*................instructors..............*/
+
+.instructors {
+     width: 80%;
+     margin: auto;
+     padding-top: 100px;
+     text-align: center;
+}
+
+.instructors-col {
+     flex-basis: 50%;
+    align-items: flex-start;
+    border-radius: 40px;
+    margin-bottom: 20%;
+    text-align: left;
+    background: #fff3f3;
+    padding: 50px;
+    cursor: pointer;
+    display: flex;
+}
+
+.instructors-col img{
+    height: 40px;
+    display: block;
+    margin-right: 30px;
+    border-radius: 50%;
+}
+
+.instructors-text {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.instructors-col h3{
+    margin-top: 15px;
+    text-align: left;
+}
+
+
+
+
+/*...........testimonials..................*/
+
+.testimonials {
+    width: 100%;
+    margin: auto;
+    padding-top: 100px;
+    text-align: center;
+}
+
+.testimonials-col{
+    flex-basis: 44%;
+    border-radius: 10px;
+    margin-bottom: 5%;
+    text-align: left;
+    background: #fff3f3;
+    padding: 25px;
+    cursor: pointer;
+    display: flex;
+}
+
+.testimonials-col img{
+    height: 40px;
+    display: block;
+    margin-right: 30px;
+    border-radius: 50%;
+}
+
+.testimonials-col p{
+    padding: 0;
+}
+
+.testimonials-col h3{
+    margin-top: 15px;
+    text-align: left;
+}
+
+.testimonials-col .fa-solid{
+    color: #f44366;
+}
+
+/* ........................call to action..................... */
+
+.cta {
+    margin: 100px auto;
+    width: 80%;
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    url(images/teachercall.jpg);
+    background-position: center;
+    background-color: cover;
+    border-radius: 10px;
+    text-align: center;
+    padding: 100px 0;
+}
+
+.cta h1{
+    color: white;
+    margin-bottom: 40px;
+    padding: 0;
+}
+
+/* ..................footer............. */
+
+.footer {
+    width: 100%;
+    text-align: center;
+    padding: 30px;
+}
+
+.footer h4{
+    margin-bottom: 25px;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+.icons i {
+    color: #f44366;
+    margin: 0 13px;
+    cursor: pointer;
+    padding: 18px 0;
+} 
+
+/* .......................about us page....................... */
+
+.sub-header{
+    height: 50vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
+    url(images/the-1-tohoku-university-main-campus.jpg);
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+    color: white;
+}
+
+.sub-header h1{
+    margin-top: 100px;
+}
+
+.about-us{
+    width: 80%;
+    margin: auto;
+    padding-top: 80px;
+    padding-bottom: 50px;
+}
+
+.about-col{
+    flex-basis: 48%;
+    padding: 30px 2px;
+}
+
+.about-col img{
+     width: 100%;
+}
+
+.about-col h1{
+    padding: 0;
+}
+
+.about-col p{
+    padding: 15px 0 25px;
+}
+
+.red-btn {
+    border: 1px solid darkblue;
+    background: transparent;
+    color: #f44366;
+}
+
+.red-btn:hover{
+    color: white;
+}
+
+/* ---------- Course Catalog ---------- */
+
+.course-catalog {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 80px;
+}
+
+.filters {
+    margin: 30px 0;
+}
+
+.filters select {
+    padding: 10px;
+    margin: 0 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.course-box {
+    flex-basis: 30%;
+    background: #fff3f3;
+    border-radius: 10px;
+    padding: 25px;
+    box-sizing: border-box;
+    transition: 0.5s;
+    text-align: center;
+}
+
+.course-box:hover {
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+}
+
+.course-box h3 {
+    margin-bottom: 30px;
+}
+
+.course-box p {
+    text-align: left;
+}
+
+.course-box .hero-btn {
+    margin-top: 25px;
+}
+
+/* ---------- Course Details Page ---------- */
+
+.course-details {
+    width: 70%;
+    margin: auto;
+    padding: 100px 0 60px;
+}
+
+.course-details h1 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.course-details p {
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+/* Module Section */
+.course-details h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.course-details ul {
+    margin-left: 20px;
+    margin-bottom: 40px;
+}
+
+.course-details ul li {
+    font-size: 16px;
+    padding: 8px 0;
+    list-style: disc;
+}
+
+
+/* Back Button */
+.course-details .hero-btn {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+
+
+/* ================= Enrollment System ================= */
+
+/* ================= Enrollment Section ================= */
+
+.enrollment {
+    width: 80%;
+    margin: auto;
+    padding-top: 100px;
+    padding-bottom: 80px;
+    text-align: center;
+}
+
+/* ---------- Features Box ---------- */
+
+.enrollment-features {
+    background: #f9f9f9;
+    border-left: 5px solid darkblue;
+    padding: 20px 30px;
+    margin-bottom: 40px;
+    text-align: left;
+    border-radius: 5px;
+}
+
+.enrollment-features h3 {
+    margin-bottom: 15px;
+    color: darkblue;
+}
+
+.enrollment-features ul {
+    padding-left: 20px;
+}
+
+.enrollment-features ul li {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #444;
+}
+
+/* ---------- Enrollment Form Box ---------- */
+
+.enroll-box {
+    background: #fff3f3;
+    border-radius: 10px;
+    padding: 40px;
+    width: 60%;
+    margin: 40px auto; /* center box */
+    text-align: left;
+    box-sizing: border-box;
+}
+
+/* Form elements */
+.enroll-box label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 600;
+    color: #333;
+}
+
+.enroll-box input,
+.enroll-box select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+/* Button */
+.enroll-box .hero-btn {
+    display: block;       /* pastikan dia block bawah form */
+    width: auto;          /* boleh set 100% kalau nak ikut input */
+    margin: 20px 0 10px;
+    padding: 8px 25px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    background: darkred;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.enroll-box .hero-btn:hover {
+    background: red;
+    transform: scale(1.03);
+}
+
+/* Email note */
+.email-note {
+
+    text-align: center;
+    font-size: 13px;
+    color: #555;
+    margin-top: 10px;
+}
+
+/* ---------- Optional: Responsive ---------- */
+@media screen and (max-width: 768px){
+    .enroll-box {
+        width: 90%;
+        padding: 20px;
+    }
+
+}
+
+
+/* progress tracker */
+.course-progress {
+    background-image: url('images/os-x-mountain-lion-3840x2160-24073.jpg');
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;        /* takes more horizontal space */
+    max-width: 800px;  /* prevents it from becoming too wide */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin: 0 auto;    /* Centers the container horizontally */
+    text-align: center; /* Centers content inside */
+}
+
+
+
+.body {
+
+      font-family: Arial, Helvetica, sans-serif;
+      background-image: url('images/os-x-mountain-lion-3840x2160-24073.jpg');
+     background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-color: blue;
+            margin: 0;
+            padding: 20px;
+            color: var(--text);
+            padding-bottom: 80px;
+            scroll-behavior: smooth;
+}
+
+/* Styles for the new action buttons container */
+.action-buttons {
+    margin-top: 20px;  /* Space above buttons */
+    display: flex;
+    justify-content: center;  /* Centers buttons horizontally */
+    gap: 15px;  /* Space between buttons */
+}
+
+/* Styles for individual buttons */
+.action-btn {
+    background-color: #007bff;  /* Blue background */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;  /* Smooth hover effect */
+}
+
+.action-btn:hover {
+    background-color: #0056b3;  /* Darker blue on hover */
+}
+
+.action-btn:active {
+    transform: scale(0.95);  /* Slight press effect */
+}
+
+/* Responsive adjustments */
+
+@media (max-width: 600px) {
+    .action-buttons {
+        flex-direction: column;  /* Stack buttons vertically on small screens */
+        gap: 10px;
+    }
+    .action-btn {
+        width: 100%;  /* Full width on mobile */
+    }
+}
+
+/* FORUM */
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #f3f4f6;
+}
+
+.forum-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* HEADER */
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* POST */
+.post-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.vote {
+    text-align: center;
+}
+
+.vote button {
+    background: none;
+    color: black;
+}
+
+.count {
+    font-weight: bold;
+}
+
+/* CONTENT */
+.author {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.actions span {
+    margin-right: 15px;
+    cursor: pointer;
+    color: #2563eb;
+}
+
+/* REPLY */
+.reply {
+    margin-left: 40px;
+    background: #f9fafb;
+}
+
+.reply-box {
+    display: none;
+    margin-top: 10px;
+}
+
+.reply-box textarea {
+    width: 100%;
+    height: 70px;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-box {
+    background: white;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 10px;
+}
+
+.modal-box input,
+.modal-box textarea {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    .post-card {
+        flex-direction: column;
+    }
+
+    .reply {
+        margin-left: 0;
+    }
+}
+
+/* ================= MOBILE OPTIMIZATION ================= */
+@media (max-width: 768px) {
+
+    .nav-links {
+        position: fixed;
+        background: #f44366;
+        height: 100vh;
+        width: 200px;
+        top: 0;
+        right: -200px; /* hidden by default */
+        text-align: left;
+        z-index: 1000;
+        transition: right 0.4s ease;
+    }
+
+    .nav-links ul {
+        padding: 60px 20px;
+    }
+
+    .nav-links ul li {
+        display: block;
+        margin: 20px 0;
+    }
+
+    nav .fa-bars {
+        display: block;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    nav .fa-xmark {
+        display: block;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        margin: 20px;
+    }
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Enrollment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Course Enrollment</h1>
+<p>Fill in the form below and press Enroll Now to generate your receipt.</p>
+
+<div class="enroll-box">
+    <form id="enrollForm">
+        <label>Full Name</label>
+        <input type="text" id="name" placeholder="Enter your full name" required>
+
+        <label>Student ID</label>
+        <input type="text" id="student_id" placeholder="Enter your student ID" required>
+
+        <label>Select Course</label>
+        <select id="course" required>
+            <option value="">-- Choose Course --</option>
+            <option value="Molecular Chemistry">Molecular Chemistry</option>
+            <option value="Marine Biology">Marine Biology</option>
+            <option value="Aerospace Engineering">Aerospace Engineering</option>
+        </select>
+
+        <label>Select Course Type</label>
+        <select id="course_type" required>
+            <option value="">-- Select Course Type --</option>
+            <option value="Free Course">Free Course</option>
+            <option value="Paid Course">Paid Course</option>
+        </select>
+
+        <label>Payment Method (Paid Courses Only)</label>
+        <select id="payment_method">
+            <option value="">-- Select Payment Method --</option>
+            <option value="Credit / Debit Card">Credit / Debit Card</option>
+            <option value="PayPal">PayPal</option>
+            <option value="Online Banking">Online Banking</option>
+        </select>
+
+        <button type="button" class="hero-btn" onclick="downloadReceipt()">Enroll Now</button>
+    </form>
+</div>
+
+<script src="enroll.js"></script>
+</body>
+</html>

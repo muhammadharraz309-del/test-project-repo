@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Course Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+ <section class="sub-header">
+<nav>
+    <a href="index.html"><img src="images/logo.tohokopro.svg"></a>
+    <div class="nav-links">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="prgress.html">Progress Tracker</a></li>
+            <li><a href="forum.html">Forum</a></li>
+        </ul>
+    </div>
+</nav>
+</section>
+
+<!-- COURSE DETAILS -->
+<section class="course-details">
+    <h1 id="courseTitle"></h1>
+    <p id="courseDesc"></p>
+
+    <h3>Modules</h3>
+    <ul id="moduleList"></ul>
+
+    <a href="courses.html" class="hero-btn red-btn">← Back to Courses</a>
+</section>
+
+
+
+<!-- JAVASCRIPT (WAJIB DALAM FILE NI) -->
+<script>
+const params = new URLSearchParams(window.location.search);
+const course = params.get("course");
+
+const courses = {
+    molecular: {
+        title: "Molecular Chemistry",
+        desc: "Learn the fundamentals of molecular structures and reactions.",
+        image: "images/chemistry.jpg",
+        modules: [
+            "Organic Chemistry",
+            "Biochemistry",
+            "Molecular Analysis"
+        ]
+
+    },
+    marine: {
+        title: "Marine Biology",
+        desc: "Study ocean life, ecosystems, and marine conservation.",
+        modules: [
+            "Marine Ecology",
+            "Oceanography",
+            "Conservation Science"
+        ]
+    },
+    aerospace: {
+        title: "Aerospace Engineering",
+        desc: "Explore aircraft and spacecraft design and technology.",
+        modules: [
+            "Aerodynamics",
+            "Aircraft Design",
+            "Space Systems"
+        ]
+    }
+};
+
+document.getElementById("courseTitle").textContent = courses[course].title;
+document.getElementById("courseDesc").textContent = courses[course].desc;
+
+const list = document.getElementById("moduleList");
+courses[course].modules.forEach(module => {
+    const li = document.createElement("li");
+    li.textContent = module;
+    list.appendChild(li);
+});
+</script>
+
+</body>
+</html>

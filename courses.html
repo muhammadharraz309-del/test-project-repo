@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tohoku University - Courses</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"> <img src="images/logo.tohokopro.svg" alt="Logo"> </a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa-solid fa-xmark" onclick="hideMenu()"></i>
+                <ul>
+                    <li> <a href="index.html">Home</a></li>
+                    <li> <a href="about.html">About Us</a></li>
+                    <li> <a href="courses.html">Courses</a></li>
+                    <li> <a href="prgress.html">Progress Tracker</a></li>
+                    <li> <a href="forum.html">Forum</a></li>
+                </ul>
+            </div>
+            <i class="fa-solid fa-bars" onclick="showMenu()"></i>
+        </nav>
+
+        <h1>Courses We Offer</h1>
+    </section>
+
+    <section class="courses">
+        <h1>Available Courses</h1>
+        <p>Browse our courses by category, level, or instructor.</p>
+
+        <div class="filters">
+            <select>
+                <option>Category</option>
+                <option>Engineering</option>
+                <option>Science</option>
+            </select>
+
+            <select>
+                <option>Difficulty</option>
+                <option>Beginner</option>
+                <option>Intermediate</option>
+                <option>Advanced</option>
+            </select>
+
+            <select>
+                <option>Instructor</option>
+                <option>Prof. Ryo Yamada</option>
+                <option>Dr. Keizo Araki</option>
+                <option>Dr. Emilia Watson</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <div class="course-box">
+                <h3>Molecular Chemistry</h3>
+                <p>Learn the fundamentals of molecular structures and reactions.</p>
+                <p><strong>Duration:</strong> 3 Years</p>
+                <p><strong>Instructor:</strong> Ryo Yamada</p>
+                <p><strong>Rating:</strong> ⭐⭐⭐⭐⭐</p>
+                <a href="course-details.html?course=molecular" class="hero-btn red-btn">Preview Modules</a>
+            </div>
+
+            <div class="course-box">
+                <h3>Marine Biology</h3>
+                <p>Study ocean life, ecosystems, and marine conservation.</p>
+                <p><strong>Duration:</strong> 3 Years</p>
+                <p><strong>Instructor:</strong> Light Yagami</p>
+                <p><strong>Rating:</strong> ⭐⭐⭐⭐☆</p>
+                <a href="course-details.html?course=marine" class="hero-btn red-btn">Preview Modules</a>
+            </div>
+
+            <div class="course-box">
+                <h3>Aerospace Engineering</h3>
+                <p>Explore aircraft and spacecraft design and technology.</p>
+                <p><strong>Duration:</strong> 4 Years</p>
+                <p><strong>Instructor:</strong> Emilia Watson</p>
+                <p><strong>Rating:</strong> ⭐⭐⭐⭐⭐</p>
+                <a href="course-details.html?course=aerospace" class="hero-btn red-btn">Preview Modules</a>
+            </div>
+        </div>
+
+        <div class="enroll-box">
+            <h3>Enrollment Form</h3>
+            <form id="enrollForm">
+                <label>Full Name</label>
+                <input type="text" id="name" placeholder="Enter your full name" required>
+
+                <label>Student ID</label>
+                <input type="text" id="student_id" placeholder="Enter your student ID" required>
+
+                <label>Select Course</label>
+                <select id="course" required>
+                    <option value="">-- Choose Course --</option>
+                    <option value="Molecular Chemistry">Molecular Chemistry</option>
+                    <option value="Marine Biology">Marine Biology</option>
+                    <option value="Aerospace Engineering">Aerospace Engineering</option>
+                </select>
+
+                <label>Select Course Type</label>
+                <select id="course_type" required>
+                    <option value="">-- Select Course Type --</option>
+                    <option value="Free Course">Free Course</option>
+                    <option value="Paid Course">Paid Course</option>
+                </select>
+
+                <label>Payment Method (Paid Courses Only)</label>
+                <select id="payment_method">
+                    <option value="">-- Select Payment Method --</option>
+                    <option value="Credit / Debit Card">Credit / Debit Card</option>
+                    <option value="PayPal">PayPal</option>
+                    <option value="Online Banking">Online Banking</option>
+                </select>
+
+                <button type="submit" class="hero-btn red-btn">Enroll Now</button>
+            </form>
+
+            <a id="downloadReceipt" href="#" style="display:none; margin-top:10px;" download="EnrollmentReceipt.docx">
+                Download Receipt
+            </a>
+        </div>
+    </section>
+
+    <section class="facilities">
+        <h1>Our Global Facilities</h1>
+        <p>Tohoku University provides many facilities for student use.</p>
+
+        <div class="row">
+            <div class="facilities-col">
+                <img src="images/41_main_library.jpg" alt="Library">
+                <div class="layer">
+                    <h3>Main Library</h3>
+                </div>
+            </div>
+
+            <div class="facilities-col">
+                <img src="images/11_hagi_hall.jpg" alt="Hagi Hall">
+                <div class="layer">
+                    <h3>Kawauchi Hagi Hall</h3>
+                </div>
+            </div>
+
+            <div class="facilities-col">
+                <img src="images/61_tohoku_university_hospital_st.jpg" alt="Hospital">
+                <div class="layer">
+                    <h3>Hospital</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer">
+        <h4>About Us</h4>
+        <p> Tohoku ON TOP</p>
+        <div class="icons">
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-x-twitter"></i>
+            <i class="fa-brands fa-square-instagram"></i>
+            <i class="fa-brands fa-linkedin"></i>
+        </div>
+        <p> Made by Group 7 &copy; All Rights Reserved</p>
+    </section>
+
+    <script>
+        var navLinks = document.getElementById("navLinks");
+
+        function showMenu(){
+            navLinks.style.right = "0";
+        }
+        function hideMenu(){
+            navLinks.style.right = "-200px";
+        }
+
+        // Enrollment Form Logic (Mockup for Receipt)
+        document.getElementById('enrollForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Enrollment Successful!');
+            document.getElementById('downloadReceipt').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

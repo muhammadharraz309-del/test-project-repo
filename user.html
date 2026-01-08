@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tohoku University</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+
+</head>
+<body>
+    <header>
+  <!DOCTYPE html>
+<html>
+<head>
+  <title>LMS Website</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(30, 46, 150, 0.6), rgba(4, 71, 255, 0.6)),
+        url("bg.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+
+    header {
+      background: rgba(0, 85, 255, 0.85);
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+   
+  </style>
+</head>
+
+<body>
+
+<header>
+ Learning Management System (LMS)
+</header>
+ 
+
+<div class="container">
+
+    <div class="auth-frame">
+
+  <!-- LOGIN -->
+  <div class="auth-box" id="loginBox">
+    <h3>     👤🔐Login     </h3>
+
+    <input type="text" id="loginUser" placeholder="Username">
+    <input type="password" id="loginPass" placeholder="Password">
+    <button onclick="login()">Login</button>
+
+    <div class="text-black" onclick="recoverPassword()">Forgot Password?</div>
+
+    <div class="text-black">
+      Don’t have an account?
+      <span class="link" onclick="showSignup()"> Sign Up</span>
+    </div>
+  </div>
+</div>
+  <!-- SIGN UP -->
+  <div class="auth-box" id="signupBox">
+    <img src="create_account.png">
+    <h3>Create Account</h3>
+
+    <input type="text" id="regUser" placeholder="Username">
+    <input type="password" id="regPass" placeholder="Password">
+
+    <button onclick="register()">Sign Up</button>
+
+    <div class="text-black">
+      Already have an account?
+      <span class="link" onclick="showLogin()"> Login</span>
+    </div>
+  </div>
+
+  <p id="message"></p>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard">
+
+    <div class="dashboard-title">
+      USER DASHBOARD
+    </div>
+
+    <div class="dashboard-grid">
+
+      <div class="dashboard-card">
+        <h2>👤🪪Personal Profile</h2>
+        <p>Username: <strong><span id="username"></span></strong></p>
+
+        <button onclick="updateUsername()">Update Username</button>
+        <button onclick="updatePassword()">Update Password</button>
+        <button onclick="updatePicture()">Update Profile Picture</button>
+      </div>
+
+     <div class="dashboard-card">
+        <h2>📝Enrolled Courses</h2>
+        <ul style="text-align:left;">
+          <li>Web Development</li>
+          <li>Database Management</li>
+          <li>Software Engineering</li>
+        </ul>
+      </div>
+
+      <div class="dashboard-card">
+        <h2>🎓📜Certificates</h2>
+        <p>2 Certificates Earned</p>
+      </div>
+
+      <div class="dashboard-card">
+        <h2>🔑🔄Password Recovery</h2>
+        <button onclick="recoverPassword()">Recover Password</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script> 
+</body>
+</html>
+    
+      
+    </body>
+    
+    </html>

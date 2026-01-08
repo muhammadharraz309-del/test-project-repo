@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tohoku University - About Us</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"> <img src="images/logo.tohokopro.svg" alt="Logo"> </a>
+            
+            <div class="nav-links" id="navLinks">
+                <i class="fa-solid fa-xmark" onclick="hideMenu()"></i>
+                <ul>
+                    <li> <a href="index.html">Home</a></li>
+                    <li> <a href="about.html">About Us</a></li>
+                    <li> <a href="courses.html">Courses</a></li>
+                    <li> <a href="prgress.html">Progress Tracker</a></li>
+                    <li> <a href="forum.html">Forum</a></li>
+                </ul>
+            </div>
+            
+            <i class="fa-solid fa-bars" onclick="showMenu()"></i>
+        </nav>
+
+        <h1>About Us</h1>
+        
+    </section>
+
+<section class="about-us">
+        <div class="row">
+
+            <div class="about-col">
+                <h1> One of the Prestigious University </h1>
+                <p>
+                    This University has been operating since 1999.
+                </p>
+                <a href="" class="hero-btn red-btn"> Explore Now</a>
+            </div>
+
+            <div class="about-col">
+                <img src="images/the-1-tohoku-university-main-campus.jpg" alt="Main Campus">
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="campus">
+        <h1>Our Global Campus</h1>
+        <p>These are the Campuses in Tohoku University</p>
+        
+        <div class="row">
+
+            <div class="campus-col">
+                <img src="images/katahira.jpg" alt="Katahira">
+                <div class="layer">
+                    <h3>Katahira</h3>
+                </div>
+            </div>
+
+             <div class="campus-col">
+                <img src="images/kawauchi.jpg" alt="Kawauchi">
+                <div class="layer">
+                    <h3>Kawauchi</h3>
+                </div>
+            </div>
+
+             <div class="campus-col">
+                <img src="images/aobayama2.jpg" alt="Aobayama">
+                <div class="layer">
+                    <h3>Aobayama</h3>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="footer">
+
+       <h4>About Us</h4>
+       <p> Tohoku ON TOP</p>
+
+       <div class="icons">
+           <i class="fa-brands fa-facebook"></i>
+           <i class="fa-brands fa-x-twitter"></i>
+           <i class="fa-brands fa-square-instagram"></i>
+           <i class="fa-brands fa-linkedin"></i>
+       </div>
+
+       <p> Made by Group 7 &copy; All Rights Reserved</p>
+
+    </section>
+    
+    <script>
+        var navLinks = document.getElementById("navLinks");
+
+        function showMenu(){
+            navLinks.style.right = "0";
+        }
+        function hideMenu(){
+            navLinks.style.right = "-200px";
+        }
+    </script>
+    
+</body>
+</html>
